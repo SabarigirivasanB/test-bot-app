@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { EnvironmentSelector } from "@/components/EnvironmentSelector";
 import { ApplicationSelector } from "@/components/ApplicationSelector";
@@ -6,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { ResponseDisplay } from "@/components/ResponseDisplay";
 
 interface TestCase {
   id: string;
@@ -19,6 +19,8 @@ const Regression = () => {
   const [application, setApplication] = useState("");
   const [testCases, setTestCases] = useState<TestCase[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [testResponse, setTestResponse] = useState("");
+  const [runningTests, setRunningTests] = useState(false);
 
   const handleFetchTestCases = () => {
     if (!environment || !application) return;
@@ -59,7 +61,16 @@ const Regression = () => {
   const handleRunTests = () => {
     const selectedTests = testCases.filter(test => test.checked);
     console.log("Running tests:", selectedTests);
-    // TODO: Implement actual test execution
+    setRunningTests(true);
+    
+    // Mock API call to run tests
+    setTimeout(() => {
+      const results = selectedTests.map(test => 
+        `Test "${test.name}": Passed\nTest Data: ${test.testData}\n`
+      ).join('\n');
+      setTestResponse(results);
+      setRunningTests(false);
+    }, 2000);
   };
 
   return (
@@ -82,43 +93,52 @@ const Regression = () => {
         
         <Button 
           onClick={handleRunTests}
-          disabled={!testCases.some(test => test.checked)}
+          disabled={!testCases.some(test => test.checked) || runningTests}
           variant="default"
         >
-          Run Selected Tests
+          {runningTests ? "Running Tests..." : "Run Selected Tests"}
         </Button>
       </div>
       
       {testCases.length > 0 ? (
-        <div className="border rounded-md shadow-sm overflow-hidden">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-12">Select</TableHead>
-                <TableHead>Test Case</TableHead>
-                <TableHead className="w-1/2">Test Data</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {testCases.map((testCase) => (
-                <TableRow key={testCase.id}>
-                  <TableCell>
-                    <Checkbox 
-                      checked={testCase.checked} 
-                      onCheckedChange={(checked) => toggleTestCase(testCase.id, checked === true)}
-                    />
-                  </TableCell>
-                  <TableCell>{testCase.name}</TableCell>
-                  <TableCell>
-                    <Input 
-                      value={testCase.testData}
-                      onChange={(e) => updateTestData(testCase.id, e.target.value)}
-                    />
-                  </TableCell>
+        <div className="space-y-6">
+          <div className="border rounded-md shadow-sm overflow-hidden">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-12">Select</TableHead>
+                  <TableHead>Test Case</TableHead>
+                  <TableHead className="w-1/2">Test Data</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {testCases.map((testCase) => (
+                  <TableRow key={testCase.id}>
+                    <TableCell>
+                      <Checkbox 
+                        checked={testCase.checked} 
+                        onCheckedChange={(checked) => toggleTestCase(testCase.id, checked === true)}
+                      />
+                    </TableCell>
+                    <TableCell>{testCase.name}</TableCell>
+                    <TableCell>
+                      <Input 
+                        value={testCase.testData}
+                        onChange={(e) => updateTestData(testCase.id, e.target.value)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          {(testResponse || runningTests) && (
+            <div className="mt-6">
+              <h2 className="text-lg font-semibold mb-3">Test Results</h2>
+              <ResponseDisplay response={testResponse} isLoading={runningTests} />
+            </div>
+          )}
         </div>
       ) : (
         <div className="text-center p-8 border rounded-md bg-gray-50">
