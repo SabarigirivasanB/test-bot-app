@@ -1,55 +1,39 @@
 
-import { useState } from "react";
-import { PromptInput } from "@/components/PromptInput";
-import { ResponseDisplay } from "@/components/ResponseDisplay";
-import { HistorySidebar, HistoryItem } from "@/components/HistorySidebar";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { CheckCircle, BookMarked } from "lucide-react";
 
 const Index = () => {
-  const [history, setHistory] = useState<HistoryItem[]>([]);
-  const [currentResponse, setCurrentResponse] = useState("");
-  const [selectedId, setSelectedId] = useState<string>();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handlePromptSubmit = async (prompt: string) => {
-    setIsLoading(true);
-    
-    // TODO: Replace with actual API call
-    const mockResponse = "This is a mock response. Replace with actual API integration.";
-    
-    const newItem: HistoryItem = {
-      id: Date.now().toString(),
-      prompt,
-      response: mockResponse,
-      timestamp: new Date().toLocaleTimeString(),
-    };
-
-    setHistory((prev) => [newItem, ...prev]);
-    setCurrentResponse(mockResponse);
-    setSelectedId(newItem.id);
-    setIsLoading(false);
-  };
-
-  const handleSelectHistory = (item: HistoryItem) => {
-    setSelectedId(item.id);
-    setCurrentResponse(item.response);
-  };
-
   return (
-    <div className="flex h-screen">
-      <div className="flex-1 flex flex-col p-6 gap-6 overflow-hidden">
-        <h1 className="text-2xl font-bold text-[#1A1F2C]">Test Bot</h1>
-        <div className="flex-1 overflow-auto">
-          <ResponseDisplay response={currentResponse} isLoading={isLoading} />
-        </div>
-        <div className="sticky bottom-0 bg-white pt-4">
-          <PromptInput onSubmit={handlePromptSubmit} isLoading={isLoading} />
-        </div>
+    <div className="flex flex-col items-center justify-center h-full p-8 text-center">
+      <h1 className="text-4xl font-bold mb-4 text-[#1A1F2C]">Welcome to Test Bot</h1>
+      <p className="text-lg text-gray-600 max-w-3xl mb-12">
+        An AI-powered testing assistant to help you automate and streamline your testing processes.
+      </p>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
+        <Link to="/quick-test" className="w-full">
+          <div className="border rounded-lg p-6 h-full hover:shadow-md transition-shadow bg-white flex flex-col items-center text-center">
+            <CheckCircle size={48} className="text-[#9b87f5] mb-4" />
+            <h2 className="text-2xl font-semibold mb-2">Quick Test</h2>
+            <p className="text-gray-600 mb-6">
+              Quickly test scenarios by chatting with our AI assistant. Select environments and applications for context-aware testing.
+            </p>
+            <Button className="mt-auto">Get Started</Button>
+          </div>
+        </Link>
+        
+        <Link to="/regression" className="w-full">
+          <div className="border rounded-lg p-6 h-full hover:shadow-md transition-shadow bg-white flex flex-col items-center text-center">
+            <BookMarked size={48} className="text-[#9b87f5] mb-4" />
+            <h2 className="text-2xl font-semibold mb-2">Regression Testing</h2>
+            <p className="text-gray-600 mb-6">
+              Run comprehensive regression tests with configurable test data and selective test case execution.
+            </p>
+            <Button className="mt-auto">Get Started</Button>
+          </div>
+        </Link>
       </div>
-      <HistorySidebar
-        history={history}
-        selectedId={selectedId}
-        onSelectHistory={handleSelectHistory}
-      />
     </div>
   );
 };
