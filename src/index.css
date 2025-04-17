@@ -6,60 +6,60 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 210 20% 15%; // Dark navy blue for text
+    --foreground: 210 20% 15%; /* Dark navy blue for text */
 
-    // CFS-inspired color palette
-    --primary: 212 70% 20%; // Deep navy blue
-    --primary-foreground: 0 0% 100%; // White text on primary
+    /* CFS-inspired color palette */
+    --primary: 212 70% 20%; /* Deep navy blue */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
 
-    --secondary: 212 50% 45%; // Bright blue
-    --secondary-foreground: 0 0% 100%; // White text on secondary
+    --secondary: 212 50% 45%; /* Bright blue */
+    --secondary-foreground: 0 0% 100%; /* White text on secondary */
 
-    --accent: 34 89% 54%; // Warm orange
-    --accent-foreground: 0 0% 100%; // White text on accent
+    --accent: 34 89% 54%; /* Warm orange */
+    --accent-foreground: 0 0% 100%; /* White text on accent */
 
-    --muted: 210 40% 96%; // Very light blue-gray
-    --muted-foreground: 212 70% 30%; // Muted navy blue text
+    --muted: 210 40% 96%; /* Very light blue-gray */
+    --muted-foreground: 212 70% 30%; /* Muted navy blue text */
 
-    --destructive: 0 84% 60%; // Red for errors
-    --destructive-foreground: 0 0% 100%; // White text on destructive
+    --destructive: 0 84% 60%; /* Red for errors */
+    --destructive-foreground: 0 0% 100%; /* White text on destructive */
 
-    --border: 214 30% 90%; // Light blue-gray border
-    --input: 214 30% 90%; // Light blue-gray input
-    --ring: 212 70% 40%; // Bright blue ring
+    --border: 214 30% 90%; /* Light blue-gray border */
+    --input: 214 30% 90%; /* Light blue-gray input */
+    --ring: 212 70% 40%; /* Bright blue ring */
 
-    // Additional CFS-inspired colors
-    --navy: 212 70% 20%; // Deep navy blue
-    --bright-blue: 212 50% 45%; // Bright blue
-    --warm-orange: 34 89% 54%; // Warm orange
-    --light-gray: 210 20% 95%; // Very light gray
-    --dark-text: 210 20% 15%; // Dark navy blue for text
+    /* Additional CFS-inspired colors */
+    --navy: 212 70% 20%; /* Deep navy blue */
+    --bright-blue: 212 50% 45%; /* Bright blue */
+    --warm-orange: 34 89% 54%; /* Warm orange */
+    --light-gray: 210 20% 95%; /* Very light gray */
+    --dark-text: 210 20% 15%; /* Dark navy blue for text */
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 212 70% 15%; // Dark navy background
-    --foreground: 0 0% 100%; // White text
+    --background: 212 70% 15%; /* Dark navy background */
+    --foreground: 0 0% 100%; /* White text */
 
-    --primary: 0 0% 100%; // White primary
-    --primary-foreground: 212 70% 20%; // Navy text
+    --primary: 0 0% 100%; /* White primary */
+    --primary-foreground: 212 70% 20%; /* Navy text */
 
-    --secondary: 212 50% 35%; // Darker blue
-    --secondary-foreground: 0 0% 100%; // White text
+    --secondary: 212 50% 35%; /* Darker blue */
+    --secondary-foreground: 0 0% 100%; /* White text */
 
-    --accent: 34 89% 44%; // Darker orange
-    --accent-foreground: 0 0% 100%; // White text
+    --accent: 34 89% 44%; /* Darker orange */
+    --accent-foreground: 0 0% 100%; /* White text */
 
-    --muted: 212 70% 20%; // Dark navy muted
-    --muted-foreground: 0 0% 80%; // Light gray text
+    --muted: 212 70% 20%; /* Dark navy muted */
+    --muted-foreground: 0 0% 80%; /* Light gray text */
 
-    --destructive: 0 84% 50%; // Darker red
-    --destructive-foreground: 0 0% 100%; // White text
+    --destructive: 0 84% 50%; /* Darker red */
+    --destructive-foreground: 0 0% 100%; /* White text */
 
-    --border: 212 70% 25%; // Dark blue border
-    --input: 212 70% 25%; // Dark blue input
-    --ring: 212 50% 45%; // Bright blue ring
+    --border: 212 70% 25%; /* Dark blue border */
+    --input: 212 70% 25%; /* Dark blue input */
+    --ring: 212 50% 45%; /* Bright blue ring */
   }
 }
 
