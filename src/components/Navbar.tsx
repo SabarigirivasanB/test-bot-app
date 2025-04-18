@@ -1,8 +1,11 @@
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Home } from "lucide-react";
 
 const Navbar = () => {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   return (
     <nav className="bg-[#1A1F2C] text-white px-6 py-3">
       <div className="flex items-center justify-between">
@@ -16,18 +19,22 @@ const Navbar = () => {
               <Home size={18} />
               Home
             </Link>
-            <Link 
-              to="/quick-test"
-              className="px-3 py-1.5 rounded-md hover:bg-[#9b87f5]/20 transition-colors"
-            >
-              Quick Test
-            </Link>
-            <Link 
-              to="/regression"
-              className="px-3 py-1.5 rounded-md hover:bg-[#9b87f5]/20 transition-colors"
-            >
-              Regression
-            </Link>
+            {!isHomePage && (
+              <>
+                <Link 
+                  to="/quick-test"
+                  className="px-3 py-1.5 rounded-md hover:bg-[#9b87f5]/20 transition-colors"
+                >
+                  Quick Test
+                </Link>
+                <Link 
+                  to="/regression"
+                  className="px-3 py-1.5 rounded-md hover:bg-[#9b87f5]/20 transition-colors"
+                >
+                  Regression
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
