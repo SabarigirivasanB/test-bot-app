@@ -13,7 +13,7 @@ const Index = () => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
         <div className="border rounded-lg p-6 h-full hover:shadow-md transition-shadow bg-white flex flex-col items-center text-center">
-          <CheckCircle size={48} className="text-primary mb-4" />
+          <CheckCircle size={48} color="#9b87f5" className="mb-4" />
           <h2 className="text-2xl font-semibold mb-4">Quick Test</h2>
           <p className="text-gray-600 mb-8">
             Quickly test scenarios by chatting with our AI assistant. Select environments and applications for context-aware testing.
@@ -26,7 +26,7 @@ const Index = () => {
         </div>
         
         <div className="border rounded-lg p-6 h-full hover:shadow-md transition-shadow bg-white flex flex-col items-center text-center">
-          <Server size={48} className="text-primary mb-4" />
+          <Server size={48} color="#9b87f5" className="mb-4" />
           <h2 className="text-2xl font-semibold mb-4">Regression Testing</h2>
           <p className="text-gray-600 mb-8">
             Run comprehensive regression tests with configurable test data and selective test case execution.
