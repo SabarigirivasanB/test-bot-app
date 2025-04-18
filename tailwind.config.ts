@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -45,7 +44,6 @@ export default {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))'
         },
-        // Custom CFS-inspired color additions
         navy: 'hsl(var(--navy))',
         'bright-blue': 'hsl(var(--bright-blue))',
         'warm-orange': 'hsl(var(--warm-orange))',
