@@ -16,7 +16,7 @@ const Navbar = () => {
               to="/"
               className="px-3 py-1.5 rounded-md hover:bg-[#9b87f5]/20 transition-colors flex items-center gap-2"
             >
-              <Home size={18} />
+              <Home size={18} color="#9b87f5" />
               Home
             </Link>
             {!isHomePage && (
