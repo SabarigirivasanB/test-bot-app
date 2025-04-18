@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MessageSquare, ClipboardList } from "lucide-react";
+import { ArrowRight, Check, BookOpen } from "lucide-react";
 
 const Index = () => {
   return (
@@ -13,7 +13,7 @@ const Index = () => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
         <div className="border rounded-lg p-6 h-full hover:shadow-md transition-shadow bg-white flex flex-col items-center text-center">
-          <MessageSquare size={48} className="text-[#9b87f5] mb-4" />
+          <Check size={48} className="text-[#9b87f5] mb-4" />
           <h2 className="text-2xl font-semibold mb-4">Quick Test</h2>
           <p className="text-gray-600 mb-8">
             Quickly test scenarios by chatting with our AI assistant. Select environments and applications for context-aware testing.
@@ -26,7 +26,7 @@ const Index = () => {
         </div>
         
         <div className="border rounded-lg p-6 h-full hover:shadow-md transition-shadow bg-white flex flex-col items-center text-center">
-          <ClipboardList size={48} className="text-[#9b87f5] mb-4" />
+          <BookOpen size={48} className="text-[#9b87f5] mb-4" />
           <h2 className="text-2xl font-semibold mb-4">Regression Testing</h2>
           <p className="text-gray-600 mb-8">
             Run comprehensive regression tests with configurable test data and selective test case execution.
