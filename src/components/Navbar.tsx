@@ -10,7 +10,14 @@ const Navbar = () => {
     <nav className="bg-[#1A1F2C] text-white px-6 py-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <h1 className="text-xl font-bold">Test Bot</h1>
+          <Link to="/" className="flex items-center gap-2">
+            <img 
+              src="/lovable-uploads/eb5e62fb-6c65-4a02-a6a8-d6f099b0df11.png" 
+              alt="Test Bot Logo" 
+              className="h-8 w-8" 
+            />
+            <span className="text-xl font-bold">Test Bot</span>
+          </Link>
           <div className="flex space-x-4">
             <Link 
               to="/"
