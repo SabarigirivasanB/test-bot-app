@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { PromptInput } from "@/components/PromptInput";
 import { ResponseDisplay } from "@/components/ResponseDisplay";
@@ -6,6 +5,7 @@ import { HistorySidebar, HistoryItem } from "@/components/HistorySidebar";
 import { FavoritesSidebar, FavoriteItem } from "@/components/FavoritesSidebar";
 import { EnvironmentSelector } from "@/components/EnvironmentSelector";
 import { ApplicationSelector } from "@/components/ApplicationSelector";
+import { useToast } from "@/hooks/use-toast";
 
 const QuickTest = () => {
   const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -20,24 +20,45 @@ const QuickTest = () => {
   const [environment, setEnvironment] = useState("");
   const [application, setApplication] = useState("");
   const [promptValue, setPromptValue] = useState("");
+  const { toast } = useToast();
 
   const handlePromptSubmit = async (prompt: string) => {
     setIsLoading(true);
     
-    // TODO: Replace with actual API call including environment and application
-    const mockResponse = `Response for "${prompt}" with env: ${environment || "None"}, app: ${application || "None"}`;
-    
-    const newItem: HistoryItem = {
-      id: Date.now().toString(),
-      prompt,
-      response: mockResponse,
-      timestamp: new Date().toLocaleTimeString(),
-    };
+    try {
+      if (!prompt.trim()) {
+        throw new Error("Please enter a valid prompt");
+      }
 
-    setHistory((prev) => [newItem, ...prev]);
-    setCurrentResponse(mockResponse);
-    setSelectedId(newItem.id);
-    setIsLoading(false);
+      const mockResponse = `Response for "${prompt}" with env: ${environment || "None"}, app: ${application || "None"}`;
+      
+      const newItem: HistoryItem = {
+        id: Date.now().toString(),
+        prompt,
+        response: mockResponse,
+        timestamp: new Date().toLocaleTimeString(),
+      };
+
+      setHistory((prev) => [newItem, ...prev]);
+      setCurrentResponse(mockResponse);
+      setSelectedId(newItem.id);
+
+      toast({
+        title: "Success",
+        description: "Prompt processed successfully",
+      });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Failed to process prompt. Please try again.";
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: errorMessage,
+      });
+      
+      setCurrentResponse("");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSelectHistory = (item: HistoryItem) => {

@@ -1,4 +1,7 @@
 
+import { AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+
 interface ResponseDisplayProps {
   response: string;
   isLoading?: boolean;
@@ -14,10 +17,21 @@ export const ResponseDisplay = ({ response, isLoading }: ResponseDisplayProps) =
     );
   }
 
+  if (!response) {
+    return (
+      <Alert variant="destructive" className="mb-4">
+        <AlertCircle className="h-4 w-4" />
+        <AlertDescription>
+          No response available. Please try submitting a new prompt.
+        </AlertDescription>
+      </Alert>
+    );
+  }
+
   return (
     <div className="p-4 rounded-lg bg-white border">
       <pre className="whitespace-pre-wrap font-sans text-[#1A1F2C]">
-        {response || "Response will appear here..."}
+        {response}
       </pre>
     </div>
   );
