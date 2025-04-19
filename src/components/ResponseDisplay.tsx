@@ -5,9 +5,10 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 interface ResponseDisplayProps {
   response: string;
   isLoading?: boolean;
+  error?: string;
 }
 
-export const ResponseDisplay = ({ response, isLoading }: ResponseDisplayProps) => {
+export const ResponseDisplay = ({ response, isLoading, error }: ResponseDisplayProps) => {
   if (isLoading) {
     return (
       <div className="animate-pulse p-4 rounded-lg bg-gray-100">
@@ -17,14 +18,24 @@ export const ResponseDisplay = ({ response, isLoading }: ResponseDisplayProps) =
     );
   }
 
-  if (!response) {
+  if (error) {
     return (
       <Alert variant="destructive" className="mb-4">
         <AlertCircle className="h-4 w-4" />
         <AlertDescription>
-          No response available. Please try submitting a new prompt.
+          {error}
         </AlertDescription>
       </Alert>
+    );
+  }
+
+  if (!response) {
+    return (
+      <div className="p-4 rounded-lg bg-white border">
+        <pre className="whitespace-pre-wrap font-sans text-[#1A1F2C]">
+          Response will appear here...
+        </pre>
+      </div>
     );
   }
 
