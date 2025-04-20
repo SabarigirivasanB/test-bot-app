@@ -26,10 +26,12 @@ export const HistorySlide = ({ prompt, timestamp, isSelected, onClick }: History
           </p>
         </button>
       </HoverCardTrigger>
-      <HoverCardContent className="w-80">
+      <HoverCardContent 
+        className="w-80 bg-[#1A1F2C] text-white rounded-lg shadow-xl p-4 border-none"
+      >
         <div className="space-y-2">
           <p className="text-sm">{prompt}</p>
-          <p className="text-xs text-gray-500">{timestamp}</p>
+          <p className="text-xs text-gray-300">{timestamp}</p>
         </div>
       </HoverCardContent>
     </HoverCard>
