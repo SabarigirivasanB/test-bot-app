@@ -8,9 +8,16 @@ interface HistorySlideProps {
   timestamp: string;
   isSelected?: boolean;
   onClick: () => void;
+  showFavoriteIcon?: boolean;
 }
 
-export const HistorySlide = ({ prompt, timestamp, isSelected, onClick }: HistorySlideProps) => {
+export const HistorySlide = ({ 
+  prompt, 
+  timestamp, 
+  isSelected, 
+  onClick, 
+  showFavoriteIcon = false 
+}: HistorySlideProps) => {
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
@@ -29,24 +36,28 @@ export const HistorySlide = ({ prompt, timestamp, isSelected, onClick }: History
                 {timestamp}
               </p>
             </div>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    // Add to favorites logic will be implemented here
-                  }}
-                  className={`p-1 rounded-full hover:bg-gray-100 ${
-                    isSelected ? "text-white hover:bg-white/20" : "text-gray-400 hover:text-gray-600"
-                  }`}
-                >
-                  <Plus size={16} />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Add to favorites</p>
-              </TooltipContent>
-            </Tooltip>
+            {showFavoriteIcon && (
+              <Tooltip delayDuration={100}>
+                <TooltipTrigger asChild>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      // Add to favorites logic will be implemented here
+                    }}
+                    className={`p-1 rounded-full transition-colors ${
+                      isSelected 
+                        ? "text-white hover:bg-white/20" 
+                        : "text-gray-400 hover:bg-[#9b87f5]/20 hover:text-[#9b87f5]"
+                    }`}
+                  >
+                    <Plus size={16} />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="left" className="bg-[#9b87f5] text-white">
+                  <p>Add to favorites</p>
+                </TooltipContent>
+              </Tooltip>
+            )}
           </div>
         </button>
       </HoverCardTrigger>
@@ -61,4 +72,3 @@ export const HistorySlide = ({ prompt, timestamp, isSelected, onClick }: History
     </HoverCard>
   );
 };
-

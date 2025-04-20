@@ -28,6 +28,7 @@ export const HistorySidebar = ({ history, selectedId, onSelectHistory }: History
               timestamp={item.timestamp}
               isSelected={item.id === selectedId}
               onClick={() => onSelectHistory(item)}
+              showFavoriteIcon={true}
             />
           ))}
         </div>
