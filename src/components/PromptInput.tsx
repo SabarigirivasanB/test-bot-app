@@ -46,7 +46,7 @@ export const PromptInput = ({
         value={prompt}
         onChange={handleChange}
         placeholder="Enter your prompt..."
-        className="pr-16 resize-none min-h-[80px] max-h-[200px] overflow-y-auto"
+        className="pr-16 resize-none min-h-[120px] max-h-[300px] overflow-y-auto text-base"
       />
       <Button 
         type="submit" 
