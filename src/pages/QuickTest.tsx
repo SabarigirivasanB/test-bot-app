@@ -26,6 +26,7 @@ const QuickTest = () => {
   const handlePromptSubmit = async (prompt: string) => {
     setIsLoading(true);
     setError(undefined);
+    setPromptValue(""); // Clear the prompt input after submission
     
     try {
       if (!prompt.trim()) {
@@ -76,6 +77,7 @@ const QuickTest = () => {
   const handleSelectHistory = (item: HistoryItem) => {
     setSelectedId(item.id);
     setCurrentResponse(item.response);
+    setPromptValue(item.prompt); // Populate the prompt input with selected history item
   };
 
   const handleSelectFavorite = (prompt: string) => {
