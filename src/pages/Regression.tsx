@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { EnvironmentSelector } from "@/components/EnvironmentSelector";
 import { ApplicationSelector } from "@/components/ApplicationSelector";
@@ -6,6 +7,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ResponseDisplay } from "@/components/ResponseDisplay";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 interface TestCase {
   id: string;
@@ -14,6 +23,8 @@ interface TestCase {
   checked: boolean;
 }
 
+const ITEMS_PER_PAGE = 15;
+
 const Regression = () => {
   const [environment, setEnvironment] = useState("");
   const [application, setApplication] = useState("");
@@ -21,6 +32,7 @@ const Regression = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [testResponse, setTestResponse] = useState("");
   const [runningTests, setRunningTests] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleFetchTestCases = () => {
     if (!environment || !application) return;
@@ -29,13 +41,13 @@ const Regression = () => {
     
     // Mock API call to fetch test cases
     setTimeout(() => {
-      const mockTestCases: TestCase[] = [
-        { id: "1", name: "Login Test", testData: "username=test, password=test123", checked: false },
-        { id: "2", name: "Navigation Test", testData: "startPage=home, endPage=products", checked: false },
-        { id: "3", name: "Checkout Test", testData: "items=3, paymentMethod=credit", checked: false },
-        { id: "4", name: "Search Test", testData: "keyword=product, filters=price,category", checked: false },
-        { id: "5", name: "Profile Update Test", testData: "name=John, email=john@example.com", checked: false },
-      ];
+      // Generate 50 test cases for demonstration
+      const mockTestCases: TestCase[] = Array.from({ length: 50 }, (_, index) => ({
+        id: (index + 1).toString(),
+        name: `Test Case ${index + 1}`,
+        testData: `testData${index + 1}=value${index + 1}`,
+        checked: false
+      }));
       
       setTestCases(mockTestCases);
       setIsLoading(false);
@@ -58,12 +70,17 @@ const Regression = () => {
     );
   };
 
+  const handleSelectAll = (checked: boolean) => {
+    setTestCases(
+      testCases.map(testCase => ({ ...testCase, checked }))
+    );
+  };
+
   const handleRunTests = () => {
     const selectedTests = testCases.filter(test => test.checked);
     console.log("Running tests:", selectedTests);
     setRunningTests(true);
     
-    // Mock API call to run tests
     setTimeout(() => {
       const results = selectedTests.map(test => 
         `Test "${test.name}": Passed\nTest Data: ${test.testData}\n`
@@ -72,6 +89,14 @@ const Regression = () => {
       setRunningTests(false);
     }, 2000);
   };
+
+  // Pagination calculations
+  const totalPages = Math.ceil(testCases.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const currentTestCases = testCases.slice(startIndex, endIndex);
+
+  const allCurrentPageSelected = currentTestCases.every(test => test.checked);
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
@@ -106,13 +131,18 @@ const Regression = () => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-12">Select</TableHead>
+                  <TableHead className="w-12">
+                    <Checkbox 
+                      checked={allCurrentPageSelected}
+                      onCheckedChange={(checked) => handleSelectAll(checked === true)}
+                    />
+                  </TableHead>
                   <TableHead>Test Case</TableHead>
                   <TableHead className="w-1/2">Test Data</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {testCases.map((testCase) => (
+                {currentTestCases.map((testCase) => (
                   <TableRow key={testCase.id}>
                     <TableCell>
                       <Checkbox 
@@ -132,6 +162,35 @@ const Regression = () => {
               </TableBody>
             </Table>
           </div>
+
+          {totalPages > 1 && (
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious 
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                  />
+                </PaginationItem>
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <PaginationItem key={i + 1}>
+                    <PaginationLink
+                      onClick={() => setCurrentPage(i + 1)}
+                      isActive={currentPage === i + 1}
+                    >
+                      {i + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                <PaginationItem>
+                  <PaginationNext 
+                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
 
           {(testResponse || runningTests) && (
             <div className="mt-6">
@@ -154,3 +213,4 @@ const Regression = () => {
 };
 
 export default Regression;
+
