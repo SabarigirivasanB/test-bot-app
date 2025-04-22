@@ -98,6 +98,19 @@ const Regression = () => {
 
   const allCurrentPageSelected = currentTestCases.every(test => test.checked);
 
+  // Handlers for pagination navigation
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(p => p - 1);
+    }
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(p => p + 1);
+    }
+  };
+
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">Regression Testing</h1>
@@ -167,10 +180,14 @@ const Regression = () => {
             <Pagination>
               <PaginationContent>
                 <PaginationItem>
-                  <PaginationPrevious 
-                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                    disabled={currentPage === 1}
-                  />
+                  {currentPage === 1 ? (
+                    <span className="cursor-not-allowed opacity-50 inline-flex h-10 items-center justify-center gap-1 rounded-md bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors pl-2.5">
+                      <span className="h-4 w-4" />
+                      <span>Previous</span>
+                    </span>
+                  ) : (
+                    <PaginationPrevious onClick={goToPreviousPage} />
+                  )}
                 </PaginationItem>
                 {Array.from({ length: totalPages }, (_, i) => (
                   <PaginationItem key={i + 1}>
@@ -183,10 +200,14 @@ const Regression = () => {
                   </PaginationItem>
                 ))}
                 <PaginationItem>
-                  <PaginationNext 
-                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                    disabled={currentPage === totalPages}
-                  />
+                  {currentPage === totalPages ? (
+                    <span className="cursor-not-allowed opacity-50 inline-flex h-10 items-center justify-center gap-1 rounded-md bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors pr-2.5">
+                      <span>Next</span>
+                      <span className="h-4 w-4" />
+                    </span>
+                  ) : (
+                    <PaginationNext onClick={goToNextPage} />
+                  )}
                 </PaginationItem>
               </PaginationContent>
             </Pagination>
@@ -213,4 +234,3 @@ const Regression = () => {
 };
 
 export default Regression;
-
