@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { PromptInput } from "@/components/PromptInput";
 import { ResponseDisplay } from "@/components/ResponseDisplay";
@@ -33,6 +34,14 @@ const QuickTest = () => {
         throw new Error("Please enter a valid prompt");
       }
 
+      if (!environment) {
+        throw new Error("Please select an environment");
+      }
+
+      if (!application) {
+        throw new Error("Please select an application");
+      }
+
       const mockResponse = await new Promise((resolve, reject) => {
         const shouldFail = Math.random() < 0.3; // 30% chance of failure for demo
         
@@ -40,7 +49,7 @@ const QuickTest = () => {
           if (shouldFail) {
             reject(new Error("Request timed out. Please try again."));
           } else {
-            resolve(`Response for "${prompt}" with env: ${environment || "None"}, app: ${application || "None"}`);
+            resolve(`Response for "${prompt}" with env: ${environment}, app: ${application}`);
           }
         }, 1000);
       });
@@ -57,6 +66,7 @@ const QuickTest = () => {
       setSelectedId(newItem.id);
 
       toast({
+        variant: "success",
         title: "Success",
         description: "Prompt processed successfully",
       });
